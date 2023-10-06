@@ -1,0 +1,50 @@
+import pygame
+import time
+
+pygame.init()
+
+largura, altura = 1324, 768
+janela = pygame.display.set_mode((largura, altura))
+pygame.display.set_caption("Frase Piscante")
+
+imagem_de_fundo = pygame.image.load('C:/Users/dev-sistemas-tarde/Downloads/intro.jpg')
+
+imagem_de_fundo = pygame.transform.scale(imagem_de_fundo, (largura, altura))
+
+branco = (255, 255, 255)
+
+# Fonte e texto
+fonte = pygame.font.Font('OptimusPrinceps.ttf', 24)
+frase = "PRESSIONE ENTER PARA CONTINUAR"
+
+posicao_x = (largura - fonte.size(frase)[0]) // 2
+posicao_y = altura + 20  # Comece abaixo da tela
+
+# Variável para controlar o tempo de piscagem
+piscando = True
+
+# Loop principal do jogo
+executando = True
+while executando:
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            executando = False
+
+    janela.blit(imagem_de_fundo, (0, 0))
+
+    if piscando:
+        texto = fonte.render(frase, True, branco)
+        janela.blit(texto, (posicao_x, posicao_y))
+
+    pygame.display.flip()
+
+    # Movimento gradual para cima
+    posicao_y = 600  # Ajuste esse valor para controlar a velocidade de movimento
+
+
+    time.sleep(0.8)  # Aguarda um curto período de tempo
+
+    piscando = not piscando  # Inverte o estado de piscagem
+
+# Encerra o Pygame
+pygame.quit()
